@@ -1,0 +1,26 @@
+{
+  "name": "js-algorithms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enrique7mc/js-algorithms.git"
+  },
+  "author": "Enrique Munguía",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enrique7mc/js-algorithms/issues"
+  },
+  "homepage": "https://github.com/enrique7mc/js-algorithms#readme",
+  "dependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^2.5.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1"
+  }
+}
