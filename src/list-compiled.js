@@ -40,6 +40,50 @@ List.prototype.insert = function (element, after) {
     return true;
 };
 
+List.prototype.remove = function (element) {
+    var index = this.find(element);
+    if (index === -1) {
+        return false;
+    }
+    this.dataStore.splice(index, 1);
+    this.listSize--;
+    return true;
+};
+
+List.prototype.front = function () {
+    this.position = 0;
+};
+
+List.prototype.end = function () {
+    this.position = this.listSize - 1;
+};
+
+List.prototype.next = function () {
+    if (!(this.position === this.listSize - 1)) {
+        this.position++;
+    }
+};
+
+List.prototype.prev = function () {
+    if (!(this.position === 0)) {
+        this.position--;
+    }
+};
+
+List.prototype.currPos = function () {
+    return this.position;
+};
+
+List.prototype.moveTo = function (position) {
+    if (0 <= position && position < this.listSize) {
+        this.position = position;
+    }
+};
+
+List.prototype.contains = function (element) {
+    return this.find(element) !== -1;
+};
+
 module.exports = List;
 
 //# sourceMappingURL=list-compiled.js.map

@@ -89,6 +89,130 @@ describe('List', function () {
             expect(list.toString()).toBe('[1, 2, 5, 3]');
         });
     });
+
+    describe('remove(element)', function () {
+        it('should remove element', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            expect(list.remove(2)).toBe(true);
+            expect(list.listSize).toBe(2);
+            expect(list.remove('not here')).toBe(false);
+            expect(list.listSize).toBe(2);
+        });
+    });
+
+    describe('front()', function () {
+        it('should set position at the beginning', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.front();
+            expect(list.position).toBe(0);
+        });
+    });
+
+    describe('end()', function () {
+        it('should set position at the end', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.end();
+            expect(list.position).toBe(2);
+        });
+    });
+
+    describe('next()', function () {
+        it('should set position to the next element', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            expect(list.position).toBe(0);
+            list.next();
+            expect(list.position).toBe(1);
+            list.next();
+            expect(list.position).toBe(2);
+            list.next();
+            expect(list.position).toBe(2);
+        });
+    });
+
+    describe('prev()', function () {
+        it('should set position to the previous element', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.next();
+            list.next();
+            expect(list.position).toBe(2);
+            list.prev();
+            expect(list.position).toBe(1);
+            list.prev();
+            expect(list.position).toBe(0);
+            list.prev();
+            expect(list.position).toBe(0);
+        });
+    });
+
+    describe('currPos()', function () {
+        it('should retrieve the current position', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            expect(list.currPos()).toBe(0);
+            list.next();
+            expect(list.currPos()).toBe(1);
+            list.next();
+            expect(list.currPos()).toBe(2);
+            list.next();
+            expect(list.currPos()).toBe(2);
+        });
+    });
+
+    describe('end()', function () {
+        it('should set position at the end', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.end();
+            expect(list.position).toBe(2);
+        });
+    });
+
+    describe('moveTo(position)', function () {
+        it('should move to the specified position', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.moveTo(2);
+            expect(list.position).toBe(2);
+            list.moveTo(0);
+            expect(list.position).toBe(0);
+            list.moveTo(-1);
+            expect(list.position).toBe(0);
+        });
+    });
+
+    describe('contains(element)', function () {
+        it('should indicate if the element exists', function () {
+            let list = new List();
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            expect(list.contains(1)).toBe(true);
+            expect(list.contains(2)).toBe(true);
+            expect(list.contains(3)).toBe(true);
+            expect(list.contains(4)).toBe(false);
+        });
+    });
 });
 
 //# sourceMappingURL=list.test-compiled.js.map
