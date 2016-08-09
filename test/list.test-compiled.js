@@ -4,6 +4,13 @@ var expect = require('expect');
 var List = require('../src/list');
 
 describe('List', function () {
+    beforeEach(function () {
+        var dummyList = new List();
+        dummyList.append(1);
+        dummyList.append(2);
+        dummyList.append(3);
+    });
+
     describe('List object', function () {
         it('should return a List object', function () {
             expect(new List()).toBeA(List);
