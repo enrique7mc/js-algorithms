@@ -48,6 +48,75 @@ function inOrder(node) {
   inOrder(node.right);
 }
 
+function inOrderIterative(node) {
+  if (node == null) return;
+  let pending = [];
+  let str = '';
+  let current = node;
+
+  while(current != null) {
+    pending.push(current);
+    current = current.left;
+  }
+  while (pending.length > 0) {
+    current = pending.pop();
+    str += current.data + ' ';
+    if (current.right) {
+      current = current.right;
+      while (current != null) {
+        pending.push(current);
+        current = current.left;
+      }
+    }
+  }
+  console.log(str);
+}
+
+function depthFirstSearchIterative (node) {
+  let nodes = [node];
+  while(nodes.length) {
+    var current = nodes.pop();
+    console.log(current.data);
+
+    if (current.left) {
+      nodes.push(current.left);
+    }
+
+    if (current.right) {
+      nodes.push(current.right);
+    }
+  }
+}
+
+function secondLargest (node) {
+  let current = node;
+
+  if (!current.right) {
+    return current.parent.data;
+  }
+
+  let parent = current;
+  current = current.right;
+  current.parent = parent;
+  return secondLargest(current);
+}
+
+function secondLargestIterative (node) {
+  let nodes = [];
+  nodes.push({ node, parent: null})
+  while(nodes.length) {
+    let popped = nodes.pop();
+    let current = popped.node;
+    let parent = popped.parent;
+
+    if (current.right) {
+      nodes.push({node: current.right, parent: current});
+    } else {
+      return parent.data;
+    }
+  }
+}
+
 function preOrder(node) {
   if (node == null) return;
   console.log(node.data);
@@ -131,6 +200,10 @@ function removeNode(node, data) {
   }
 }
 
+function isLeaf (node) {
+  return node.left == null && node.right == null;
+}
+
 
 const nums = new BST();
 nums.insert(23);
@@ -140,9 +213,14 @@ nums.insert(37);
 nums.insert(3);
 nums.insert(99);
 nums.insert(22);
-// console.log("Pos traversal: ");
-// posOrder(nums.root);
 
-console.log(nums.getMin());
-console.log(nums.getMax());
-console.log(nums.find(16));
+// nums.insert(1);
+// nums.insert(2);
+// nums.insert(4);
+// nums.insert(5);
+// nums.insert(3);
+
+console.log("In traversal: ");
+// inOrder(nums.root);
+inOrderIterative(nums.root);
+console.log(secondLargest(nums.root));;
