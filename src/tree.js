@@ -1,226 +1,69 @@
 'use strict';
 
-function Node(data, left, right) {
-  this.data = data;
-  this.left = left;
-  this.right = right;
+function Node(data, children) {
+    this.data = data;
+    this.children = children || [];
 }
 
-function BST() {
-  this.root = null;
-  this.insert = insert;
-  this.getMin = getMin;
-  this.getMax = getMax;
-  this.find = find;
-}
+Node.prototype.addChild = function (node) {
+  this.children.push(node);
+};
 
-function insert(data) {
-  const n = new Node(data, null, null);
-  if (this.root == null) {
-    this.root = n;
-    return;
-  }
-
-  let current = this.root;
-  let parent;
-  while (true) {
-    parent = current;
-    if (data < current.data) {
-      current = current.left;
-      if (current == null) {
-        parent.left = n;
-        break;
-      }
-    } else {
-      current = current.right;
-      if (current == null) {
-        parent.right = n;
-        break;
-      }
+function BFS(root) {
+    const queue = [root];
+    while(queue.length > 0) {
+        let node = queue.shift();
+        console.log(node.data);
+        for (const child of node.children) {
+            queue.push(child);
+        }
     }
-  }
 }
 
-function inOrder(node) {
-  if (node == null) return;
-  inOrder(node.left);
-  console.log(node.data);
-  inOrder(node.right);
-}
+function getGeneration(root, gen) {
+    if (gen === 0) { return root; }
+    let queue = [root];
+    let children = [];
+    let depth = 0;
+    while(queue.length > 0) {
+        while (queue.length > 0) {
+            let parent = queue.shift();
+            for (const child of parent.children) {
+                children.push(child);
+            }
+        }
+        if  (++depth === gen) {
+            return children;
+        }
 
-function inOrderIterative(node) {
-  if (node == null) return;
-  let pending = [];
-  let str = '';
-  let current = node;
-
-  while(current != null) {
-    pending.push(current);
-    current = current.left;
-  }
-  while (pending.length > 0) {
-    current = pending.pop();
-    str += current.data + ' ';
-    if (current.right) {
-      current = current.right;
-      while (current != null) {
-        pending.push(current);
-        current = current.left;
-      }
+        while (children.length > 0) {
+            queue.push(children.shift());
+        }
     }
-  }
-  console.log(str);
 }
 
-function depthFirstSearchIterative (node) {
-  let nodes = [node];
-  while(nodes.length) {
-    var current = nodes.pop();
-    console.log(current.data);
-
-    if (current.left) {
-      nodes.push(current.left);
+function getGenerationRecursive(root, depth, gen) {
+    if (depth === gen) { return root; }
+    depth++;
+    let result = [];
+    for(let child of root.children) {
+        result.push(getGenerationRecursive(child, depth, gen));
     }
 
-    if (current.right) {
-      nodes.push(current.right);
-    }
-  }
+    return result;
 }
 
-function secondLargest (node) {
-  let current = node;
+let n4 = new Node(4);
+let n5 = new Node(5);
+let n6 = new Node(6);
+let n7 = new Node(7);
+let n8 = new Node(8);
 
-  if (!current.right) {
-    return current.parent.data;
-  }
+let n3 = new Node(3, [n4, n5, n6]);
+let n2 = new Node(2, [n8, n7]);
+let n1 = new Node(1, [n3, n2]);
 
-  let parent = current;
-  current = current.right;
-  current.parent = parent;
-  return secondLargest(current);
-}
+BFS(n1);
 
-function secondLargestIterative (node) {
-  let nodes = [];
-  nodes.push({ node, parent: null})
-  while(nodes.length) {
-    let popped = nodes.pop();
-    let current = popped.node;
-    let parent = popped.parent;
-
-    if (current.right) {
-      nodes.push({node: current.right, parent: current});
-    } else {
-      return parent.data;
-    }
-  }
-}
-
-function preOrder(node) {
-  if (node == null) return;
-  console.log(node.data);
-  preOrder(node.left);
-  preOrder(node.right);
-}
-
-function posOrder(node) {
-  if (node == null) return;
-  posOrder(node.left);
-  posOrder(node.right);
-  console.log(node.data);
-}
-
-function getMin() {
-  let current = this.root;
-  while (current.left != null) {
-    current = current.left;
-  }
-  return current.data;
-}
-
-function getMax() {
-  let current = this.root;
-  while (current.right != null) {
-    current = current.right;
-  }
-  return current.data;
-}
-
-function find(data) {
-  let current = this.root;
-
-  while (current != null) {
-    if (current.data === data) {
-      return current;
-    }
-
-    if (data < current.data) {
-      current = current.left;
-    } else {
-      current = current.right;
-    }
-  }
-}
-
-function remove(data) {
-  this.root = removeNode(this.root, data);
-}
-
-function removeNode(node, data) {
-  if (node == null) {
-    return null;
-  }
-  if (data == node.data) {
-        // node has no children
-    if (node.left == null && node.right == null) {
-      return null;
-    }
-        // node has no left child
-    if (node.left == null) {
-      return node.right;
-    }
-        // node has no right child
-    if (node.right == null) {
-      return node.left;
-    }
-        // node has two children
-    const tempNode = getSmallest(node.right);
-    node.data = tempNode.data;
-    node.right = removeNode(node.right, tempNode.data);
-    return node;
-  }
-  else if (data < node.data) {
-    node.left = removeNode(node.left, data);
-    return node;
-  }
-    else {
-    node.right = removeNode(node.right, data);
-    return node;
-  }
-}
-
-function isLeaf (node) {
-  return node.left == null && node.right == null;
-}
-
-
-const nums = new BST();
-nums.insert(23);
-nums.insert(45);
-nums.insert(16);
-nums.insert(37);
-nums.insert(3);
-nums.insert(99);
-nums.insert(22);
-
-// nums.insert(1);
-// nums.insert(2);
-// nums.insert(4);
-// nums.insert(5);
-// nums.insert(3);
-
-console.log("In traversal: ");
-// inOrder(nums.root);
-inOrderIterative(nums.root);
-console.log(secondLargest(nums.root));;
+let result = getGenerationRecursive(n1, 0, 1);
+console.log(result);
