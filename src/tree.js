@@ -63,7 +63,8 @@ let n3 = new Node(3, [n4, n5, n6]);
 let n2 = new Node(2, [n8, n7]);
 let n1 = new Node(1, [n3, n2]);
 
-BFS(n1);
+// BFS(n1);
 
-let result = getGenerationRecursive(n1, 0, 1);
+let result = getGenerationRecursive(n1, 0, 2);
+// let result = getGeneration(n1, 2);
 console.log(result);

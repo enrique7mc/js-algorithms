@@ -3,14 +3,14 @@ function Vertex(name) {
 }
 
 Vertex.prototype.toString = function () {
-  return `${this.name} `;
+    return `${ this.name } `;
 };
 
 function Graph(vertexList) {
     this.vertexList = vertexList;
     this.edges = 0;
     this.adj = [];
-    for(let i = 0; i < vertexList.length; i++) {
+    for (let i = 0; i < vertexList.length; i++) {
         this.adj[i] = [];
     }
 
@@ -24,11 +24,11 @@ Graph.prototype.addEdge = function (v, w) {
 };
 
 Graph.prototype.showGraph = function () {
-    for(let i = 0; i < this.vertexList.length; i++) {
-        let row = `${this.vertexList[i]} -> `;
-        for(const v of this.adj[i]) {
+    for (let i = 0; i < this.vertexList.length; i++) {
+        let row = `${ this.vertexList[i] } -> `;
+        for (const v of this.adj[i]) {
             let vertex = this.vertexList[v];
-            row += `${vertex.name} `;
+            row += `${ vertex.name } `;
         }
         console.log(row);
     }
@@ -46,16 +46,16 @@ Graph.prototype.showGraph = function () {
 };*/
 
 Graph.prototype.dfs = function (v) {
-    if(!this.adj[v]) return;
+    if (!this.adj[v]) return;
     this.marked.fill(false);
     const stack = [v];
     this.marked[v] = true;
-    while(stack.length) {
+    while (stack.length) {
         let vertex = stack.pop();
-        console.log(`Visited: ${this.vertexList[vertex]}`);
+        console.log(`Visited: ${ this.vertexList[vertex] }`);
         this.marked[vertex] = true;
-        for(const w of this.adj[vertex]) {
-            if(!this.marked[w]) {
+        for (const w of this.adj[vertex]) {
+            if (!this.marked[w]) {
                 this.marked[w] = true;
                 stack.push(w);
             }
@@ -64,16 +64,16 @@ Graph.prototype.dfs = function (v) {
 };
 
 Graph.prototype.bfs = function (v) {
-    if(!this.adj[v]) return;
+    if (!this.adj[v]) return;
     this.marked.fill(false);
     const queue = [v];
     this.marked[v] = true;
-    while(queue.length) {
+    while (queue.length) {
         let vertex = queue.shift();
-        console.log(`Visited: ${this.vertexList[vertex]}`);
+        console.log(`Visited: ${ this.vertexList[vertex] }`);
         this.marked[vertex] = true;
-        for(const w of this.adj[vertex]) {
-            if(!this.marked[w]) {
+        for (const w of this.adj[vertex]) {
+            if (!this.marked[w]) {
                 this.marked[w] = true;
                 queue.push(w);
             }
@@ -93,13 +93,14 @@ function addEdges() {
     graph.addEdge(1, 5);
 
     graph.addEdge(2, 6);
-    
+
     graph.addEdge(7, 3);
     graph.addEdge(7, 4);
     graph.addEdge(7, 5);
     graph.addEdge(7, 6);
-
 }
 addEdges();
 // graph.showGraph();
 graph.bfs(0);
+
+//# sourceMappingURL=graph-compiled.js.map
