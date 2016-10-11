@@ -117,6 +117,20 @@ function secondLargestIterative(node) {
   }
 }
 
+function getHeight(node) {
+  // height of empty node = -1
+  if (!node) {
+    return -1;
+  }
+
+  // recursively get Height of left and right
+  const leftHeight = getHeight(node.left);
+  const rightHeight = getHeight(node.right);
+
+  // height is equal to the greatest height plus 1
+  return Math.max(leftHeight, rightHeight) + 1;
+}
+
 function preOrder(node) {
   if (node == null) return;
   console.log(node.data);
@@ -203,13 +217,26 @@ function isLeaf(node) {
 }
 
 const nums = new BST();
-nums.insert(23);
-nums.insert(45);
-nums.insert(16);
-nums.insert(37);
-nums.insert(3);
-nums.insert(99);
-nums.insert(22);
+let numbers = [3, 9, 11, 16, 22, 23, 37, 45, 99];
+// numbers.forEach(n => {
+//   nums.insert(n);
+// });
+
+let start = Math.floor(numbers.length / 2);
+let i = start - 1,
+    j = start;
+while (i >= 0 || j <= numbers.length - 1) {
+  if (numbers[j]) {
+    nums.insert(numbers[j]);
+    console.log(`Inserting: ${ numbers[j] }`);
+    j++;
+  }
+  if (numbers[i]) {
+    nums.insert(numbers[i]);
+    console.log(`Inserting: ${ numbers[i] }`);
+    i--;
+  }
+}
 
 // nums.insert(1);
 // nums.insert(2);
@@ -220,6 +247,7 @@ nums.insert(22);
 console.log("In traversal: ");
 // inOrder(nums.root);
 inOrderIterative(nums.root);
-console.log(secondLargest(nums.root));;
+//console.log(secondLargest(nums.root));
+console.log(getHeight(nums.root));
 
 //# sourceMappingURL=bst-compiled.js.map
