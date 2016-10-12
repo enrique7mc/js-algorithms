@@ -218,33 +218,28 @@ function isLeaf (node) {
   return node.left == null && node.right == null;
 }
 
+function sameTrees(treeA, treeB) {
+  if(!treeA && !treeB) return true;
+  if((!treeA || !treeB) || (treeA.data !== treeB.data)) return false;
 
-const nums = new BST();
-let numbers = [3, 9, 11, 16, 22, 23, 37, 45, 99];
-// numbers.forEach(n => {
-//   nums.insert(n);
-// });
-
-let start = Math.floor(numbers.length / 2);
-let i = start - 1, j = start;
-while(i >= 0 || j <= numbers.length - 1) {
-  if(numbers[j]) {
-    nums.insert(numbers[j]);
-    console.log(`Inserting: ${numbers[j]}`);
-    j++;
-  }
-  if(numbers[i]) {
-    nums.insert(numbers[i]);
-    console.log(`Inserting: ${numbers[i]}`);
-    i--;
-  }
+  return sameTrees(treeA.left, treeB.left) && sameTrees(treeA.right, treeB.right);
 }
 
-// nums.insert(1);
-// nums.insert(2);
-// nums.insert(4);
-// nums.insert(5);
-// nums.insert(3);
+const nums = new BST();
+nums.insert(1);
+nums.insert(2);
+nums.insert(4);
+nums.insert(5);
+nums.insert(3);
+
+const nums2 = new BST();
+nums2.insert(1);
+nums2.insert(20);
+nums2.insert(4);
+nums2.insert(5);
+nums2.insert(3);
+
+console.log(sameTrees(nums.root, nums2.root));
 
 console.log("In traversal: ");
 // inOrder(nums.root);
