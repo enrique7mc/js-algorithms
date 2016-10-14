@@ -4,6 +4,15 @@
 
 const { sampleArray, swap } = require('./utils');
 
+/*
+    Insertion Sort
+
+    Complexity:
+    Time: O(n^2)
+    Space: O(1)
+    Stable
+    Adaptive
+ */
 function insertionSort(arr) {
     let sortedListLastIndex = 0;
     for(let i = 1; i < arr.length; i++) {
