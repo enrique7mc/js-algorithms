@@ -15,42 +15,28 @@ function isLeaf(node) {
 function sumRootToLeafs(node) {
     if (!node) return 0;
 
-    node.sum = [];
+    node.sum = 0;
     let result = 0;
     const queue = [node];
     while (queue.length) {
         let current = queue.shift();
+        let currentSum = current.sum * 10 + current.data;
         if (isLeaf(current)) {
-            result += updateTotal(current);
+            result += currentSum;
             continue;
         }
 
         if (current.left) {
             let left = current.left;
-            left.list = [...current.list, current.data];
+            left.sum = currentSum;
             queue.push(left);
         }
 
         if (current.right) {
             let right = current.right;
-            right.list = [...current.list, current.data];
+            right.sum = currentSum;
             queue.push(right);
         }
-
-        current.list = null;
-    }
-
-    return result;
-}
-
-function updateTotal(node) {
-    const list = node.list;
-    list.push(node.data);
-    let result = 0;
-    let order = 1;
-    for (let i = list.length - 1; i >= 0; i--) {
-        result += list[i] * order;
-        order *= 10;
     }
 
     return result;
@@ -80,7 +66,9 @@ let n3 = new Node(3, n5, n6);
 let n2 = new Node(2, n4);
 let n1 = new Node(1, n2, n3);
 
-const result = sumRootToLeafsRecursive(n1);
+const result = sumRootToLeafs(n1);
+const result2 = sumRootToLeafsRecursive(n1);
 console.log(result);
+console.log(result2);
 
 //# sourceMappingURL=sum-root-to-leafs-compiled.js.map
