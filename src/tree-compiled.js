@@ -57,9 +57,13 @@ function getGenerationRecursive(root, depth, gen) {
     return result;
 }
 
-let n4 = new Node(4);
+let n9 = new Node(9);
+let n10 = new Node(10);
+let n11 = new Node(11);
+
+let n4 = new Node(4, [n11]);
 let n5 = new Node(5);
-let n6 = new Node(6);
+let n6 = new Node(6, [n9, n10]);
 let n7 = new Node(7);
 let n8 = new Node(8);
 
@@ -69,8 +73,8 @@ let n1 = new Node(1, [n3, n2]);
 
 // BFS(n1);
 
-let result = getGenerationRecursive(n1, 0, 2);
-// let result = getGeneration(n1, 2);
+// let result = getGenerationRecursive(n1, 0, 2);
+let result = getGeneration(n1, 3);
 console.log(result);
 
 //# sourceMappingURL=tree-compiled.js.map

@@ -223,6 +223,25 @@ function sameTrees(treeA, treeB) {
   return sameTrees(treeA.left, treeB.left) && sameTrees(treeA.right, treeB.right);
 }
 
+function getLeaves(root) {
+  if (!root) return;
+  let stack = [root];
+  let leaves = [];
+  while (stack.length) {
+    let current = stack.pop();
+    if (isLeaf(current)) {
+      leaves.push(current);
+      continue;
+    }
+
+    if (current.right) stack.push(current.right);
+
+    if (current.left) stack.push(current.left);
+  }
+
+  return leaves;
+}
+
 const nums = new BST();
 nums.insert(1);
 nums.insert(2);
@@ -237,12 +256,12 @@ nums2.insert(4);
 nums2.insert(5);
 nums2.insert(3);
 
-console.log(sameTrees(nums.root, nums2.root));
+//console.log(sameTrees(nums.root, nums2.root));
 
-console.log("In traversal: ");
+//console.log("In traversal: ");
 // inOrder(nums.root);
-inOrderIterative(nums.root);
-//console.log(secondLargest(nums.root));
-console.log(getHeight(nums.root));
+//inOrderIterative(nums.root);
+//console.log(getHeight(nums.root));
+console.log(getLeaves(nums.root));
 
 //# sourceMappingURL=bst-compiled.js.map
